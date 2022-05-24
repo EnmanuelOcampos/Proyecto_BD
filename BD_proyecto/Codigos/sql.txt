@@ -1,0 +1,13 @@
+CREATE DATABASE sistema_peaje
+CREATE TABLE Biometrico (id INT AUTO_INCREMENT PRIMARY KEY, id_empleado INT, timestamp BIGINT);
+CREATE TABLE Empleado (id INT AUTO_INCREMENT PRIMARY KEY, nombre VARCHAR(4), apellido VARCHAR(4), CIN BIGINT, puesto VARCHAR(4));
+CREATE TABLE Automovil (id INT AUTO_INCREMENT PRIMARY KEY, id_chofer INT, tipo VARCHAR(4), chapa VARCHAR(4), marca VARCHAR(4));
+CREATE TABLE Registro (id INT AUTO_INCREMENT PRIMARY KEY, id_auto INT, timestamp BIGINT, monto BIGINT);
+CREATE TABLE Chofer (id INT AUTO_INCREMENT PRIMARY KEY, nombre VARCHAR(4), apellido VARCHAR(4), CIN BIGINT, saldo BIGINT);
+ALTER TABLE Registro ADD CONSTRAINT registros FOREIGN KEY (id_auto) REFERENCES Automovil(id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Automovil ADD CONSTRAINT dueño FOREIGN KEY (id_chofer) REFERENCES Chofer(id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Biometrico ADD CONSTRAINT firma FOREIGN KEY (id_empleado) REFERENCES Empleado(id) ON DELETE CASCADE ON UPDATE CASCADE;
+INSERT INTO Biometrico (id_empleado,timestamp) VALUES (10,12341232)
+INSERT INTO Empleado (nombre,apellido,CIN,puesto) VALUES ('Lucas','Cho',4627218,'Empleado')
+INSERT INTO Chofer (nombre,apellido,CIN,saldo) VALUES ('Iris','Meaurio',4627218,100000)
+SELECT id_empleado FROM Biometrico WHERE timestamp>=1111421 AND timestamp<=14050000
